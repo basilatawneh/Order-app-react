@@ -5,6 +5,7 @@
   animation: meals-appear 1s ease-out forwards;
 }
 .loadingMessage {
+  color: white;
   text-align: center;
   margin-top: 50px;
   font-size: 32px;
