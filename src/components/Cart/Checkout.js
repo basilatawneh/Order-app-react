@@ -22,7 +22,7 @@ const Checkout = (props) => {
     setIsValid({
       name: !isEmpty(nameValue) && !isShorter(nameValue, 3),
       street: !isEmpty(streetValue),
-      postal:!isEmpty(postalValue) && !isShorter(postalValue, 5),
+      postal: !isEmpty(postalValue) && !isShorter(postalValue, 5),
       city: !isEmpty(cityValue)
     });
 
@@ -34,6 +34,10 @@ const Checkout = (props) => {
     if (!checkTheFormValidity()) {
       return;
     }
+
+    const [nameValue, streetValue, postalValue, cityValue] = [nameRef.current.value, streetRef.current.value, postalRef.current.value, cityRef.current.value];
+
+    props.onSubmit({ nameValue, streetValue, postalValue, cityValue });
   }
   return (
     <form className={classes.form} onSubmit={submitHandler} >
