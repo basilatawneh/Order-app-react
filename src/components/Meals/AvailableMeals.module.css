@@ -11,6 +11,9 @@
   font-size: 32px;
   font-weight: bold;
 }
+.httpError {
+  color: red;
+}
 .meals ul {
   list-style: none;
   margin: 0;

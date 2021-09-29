@@ -9,8 +9,6 @@ const ModalOverlay = props => {
     return <div className={classes.modal}>
         <div className={classes.content}>
             {props.children}
-            <button className={classes['button--alt']} onClick={props.onClose}>Close</button>
-            <button className={classes['button']}>Order</button>
         </div>
     </div>
 };

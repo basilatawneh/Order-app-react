@@ -6,12 +6,19 @@ import { useEffect, useState } from 'react';
 const AvailableMeals = () => {
     const [mealsData, setMealsData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [httpError, setHttpError] = useState();
 
     useEffect(() => {
         const fetchMeals = async () => {
-            const res = await fetch('https://orders-ada3e-default-rtdb.firebaseio.com/meals.json');
+            const res = await fetch(
+                'https://orders-ada3e-default-rtdb.firebaseio.com/meals.json'
+            );
             const resData = await res.json();
             const mealsData = [];
+            if (!res.ok) {
+                console.log("SDFS")
+                throw new Error("There is an Error !!");
+            }
             for (let key in resData) {
                 mealsData.push({
                     id: key,
@@ -23,7 +30,11 @@ const AvailableMeals = () => {
             setIsLoading(false)
             setMealsData(mealsData);
         }
-        fetchMeals();
+        fetchMeals().catch(error => {
+            console.log(error);
+            setIsLoading(true);
+            setHttpError(error.message);
+        });
     }, []);
 
     const mealsList = mealsData.map(meal => (
@@ -34,6 +45,11 @@ const AvailableMeals = () => {
             price={meal.price}
             description={meal.description}
         />));
+    if (httpError) {
+        return <div className={classes.httpError}>
+            {httpError}
+        </div>
+    }
     return (
         <>
             {isLoading ?
